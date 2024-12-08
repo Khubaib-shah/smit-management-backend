@@ -9,19 +9,15 @@ import {
 
 const router = express.Router();
 
-// create teacher
-router.route("/").post(createTeacher);
+// create teacher &  get all teacher
+router.route("/").post(createTeacher).get(getAllTeacher);
 
-// get all teacher
-router.route("/").get(getAllTeacher);
+// get specific teacher & update specific teacher & delete specific teacher
 
-// get specific teacher
-router.route("/:id").get(getSingleTeacher);
-
-// update specific teacher
-router.route("/:id").put(updateTeacher);
-
-// delete specific teacher
-router.route("/:id").delete(deleteTeacher);
+router
+  .route("/:id")
+  .get(getSingleTeacher)
+  .put(updateTeacher)
+  .delete(deleteTeacher);
 
 export default router;

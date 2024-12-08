@@ -7,19 +7,16 @@ import {
   updateStudent,
   deleteStudent,
 } from "../controler/studentController.js";
-// create Student
-router.route("/").post(createStudent);
 
-// get all student
-router.route("/").get(getAllStudent);
+// create Student & get all student & update specific student & delete specific Student
+
+router.route("/").post(createStudent).get(getAllStudent);
 
 // get specific student
-router.route("/:id").get(getSingleStudent);
-
-// update specific student
-router.route("/:id").put(updateStudent);
-
-// delete specific Student
-router.route("/:id").delete(deleteStudent);
+router
+  .route("/:id")
+  .get(getSingleStudent)
+  .put(updateStudent)
+  .delete(deleteStudent);
 
 export default router;

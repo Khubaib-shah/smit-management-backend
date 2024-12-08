@@ -23,6 +23,7 @@ const createAdmin = async (req, res) => {
     });
 
     const savedAdmin = await newAdmin.save();
+    console.log(savedAdmin);
     res
       .status(201)
       .json({ message: "Admin created successfully", data: savedAdmin });
@@ -90,7 +91,7 @@ const updateAdmin = async (req, res) => {
 const deleteAdmin = async (req, res) => {
   try {
     await Admin.findByIdAndDelete(req.params.id);
-    res.send("Admin deleted");
+    res.json({ message: "Admin deleted" });
   } catch (err) {
     res.status(500).send("ERROR FROM ADMIN DELETE API", err.message);
   }

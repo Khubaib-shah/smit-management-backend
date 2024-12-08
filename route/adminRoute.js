@@ -9,19 +9,10 @@ import {
 
 const router = express.Router();
 
-// create admin
-router.route("/").post(createAdmin);
+// create admin & get specific admin
+router.route("/").post(createAdmin).get(getAllAdmin);
 
-// get specific admin
-router.route("/").get(getAllAdmin);
-
-// get specific admin
-router.route("/:id").get(getSingleAdmin);
-
-// update specific admin
-router.route("/:id").put(updateAdmin);
-
-// delete specific admin
-router.route("/:id").delete(deleteAdmin);
+// get specific admin &  update specific admin & delete specific admin
+router.route("/:id").get(getSingleAdmin).put(updateAdmin).delete(deleteAdmin);
 
 export default router;
