@@ -28,6 +28,11 @@ const createAdmin = async (req, res) => {
       .status(201)
       .json({ message: "Admin created successfully", data: savedAdmin });
   } catch (err) {
+    if (err.code === 11000) {
+      return res.status(400).json({
+        error: "Email already exists",
+      });
+    }
     res.status(500).json({ error: `Failed to create admin: ${err.message}` });
   }
 };
