@@ -3,12 +3,14 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 
-import Admin from "./models/Admin.js";
-import Teacher from "./models/Teacher.js";
+import adminRouter from "./controler/adminController.js";
+import teacherRouter from "./controler/teacherController.js";
+import studentRoute from "./controler/studentController.js";
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
+app.use(cors());
 
 // Start server
 app.listen(PORT, () => {
@@ -30,42 +32,10 @@ app.get("/", (req, res) => {
 });
 
 // Admin
-app.post("/admin", async (req, res) => {
-  if (!req.body.name || !req.body.email || !req.body.password) {
-    return res
-      .status(400)
-      .json({ error: "Name, email, and password are required" });
-  }
+app.use("/api/admin", adminRouter);
 
-  try {
-    const newAdmin = new Admin({
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password,
-      role: req.body.role || "admin",
-    });
+// Teacher
+app.use("/api/teacher", teacherRouter);
 
-    const savedAdmin = await newAdmin.save();
-    res.json(savedAdmin);
-  } catch (err) {
-    res.status(500).send("ERROR FROM ADMIN POST API", err.message);
-  }
-});
-
-app.get("/admin", async (req, res) => {
-  try {
-    const admin = await Admin.find();
-    res.json(admin);
-  } catch (err) {
-    res.status(500).send("ERROR FROM ADMIN GET API", err.message);
-  }
-});
-
-app.delete("/admin/:id", async (req, res) => {
-  try {
-    await Admin.findByIdAndDelete(req.params.id);
-    res.send("Admin deleted");
-  } catch (err) {
-    res.status(500).send("ERROR FROM ADMIN DELETE API", err.message);
-  }
-});
+//  Student
+app.use("/api/student", studentRoute);

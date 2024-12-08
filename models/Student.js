@@ -1,15 +1,25 @@
 import mongoose from "mongoose";
 
-const studentSchema = new mongoose.Schema(
+const StudentSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     role: { type: String, default: "student" },
-    enrolledCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }],
+
+    enrolledCourses: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Course",
+      },
+    ],
+
     assignments: [
       {
-        assignment: { type: mongoose.Schema.Types.ObjectId, ref: "Assignment" },
+        assignment: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Assignment",
+        },
         submittedOn: { type: Date },
         status: {
           type: String,
@@ -22,5 +32,6 @@ const studentSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Student = mongoose.model("Student", studentSchema);
+const Student = mongoose.model("Student", StudentSchema);
+
 export default Student;
