@@ -12,7 +12,7 @@ const router = express.Router();
 // create admin & get specific admin
 router.route("/").post(createAdmin).get(getAllAdmin);
 
-// get specific admin &  update specific admin & delete specific admin
+// get specific admin & update specific admin & delete specific admin
 router.route("/:id").get(getSingleAdmin).put(updateAdmin).delete(deleteAdmin);
 
 export default router;
