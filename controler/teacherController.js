@@ -3,10 +3,8 @@ import Teacher from "../models/Teacher.js";
 import bcrypt from "bcryptjs";
 import mongoose from "mongoose";
 
-const router = express.Router();
-
 // create teacher
-router.route("/").post(async (req, res) => {
+const createTeacher = async (req, res) => {
   const { name, email, password, role } = req.body;
 
   // Input validation
@@ -37,30 +35,30 @@ router.route("/").post(async (req, res) => {
     }
     res.status(500).json({ error: `Failed to create Teacher: ${err.message}` });
   }
-});
+};
 
 // get all teacher
-router.route("/").get(async (req, res) => {
+const getAllTeacher = async (req, res) => {
   try {
     const teacher = await Teacher.find();
     res.json(teacher);
   } catch (err) {
     res.status(500).send("ERROR FROM Teacher GET API", err.message);
   }
-});
+};
 
 // get specific teacher
-router.route("/:id").get(async (req, res) => {
+const getSingleTeacher = async (req, res) => {
   try {
     const teacher = await Teacher.findById(req.params.id);
     res.json(teacher);
   } catch (err) {
     res.status(500).send("ERROR FROM Teacher GET API", err.message);
   }
-});
+};
 
 // update specific teacher
-router.route("/:id").put(async (req, res) => {
+const updateTeacher = async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).send({ error: "Invalid ID format" });
@@ -73,16 +71,22 @@ router.route("/:id").put(async (req, res) => {
   } catch (err) {
     res.status(500).send("ERROR FROM Teacher GET API", err.message);
   }
-});
+};
 
 // delete specific teacher
-router.route("/:id").delete(async (req, res) => {
+const deleteTeacher = async (req, res) => {
   try {
     const teacher = await Teacher.findByIdAndDelete(req.params.id);
     res.json("Teacher deleted");
   } catch (err) {
     res.status(500).send("ERROR FROM Teacher GET API", err.message);
   }
-});
+};
 
-export default router;
+export {
+  createTeacher,
+  getAllTeacher,
+  getSingleTeacher,
+  updateTeacher,
+  deleteTeacher,
+};

@@ -3,9 +3,9 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 
-import adminRouter from "./controler/adminController.js";
-import teacherRouter from "./controler/teacherController.js";
-import studentRoute from "./controler/studentController.js";
+import adminRouter from "./route/adminRoute.js";
+import teacherRouter from "./route/teacherRoute.js";
+import studentRoute from "./route/studentRoute.js";
 
 dotenv.config();
 const app = express();
